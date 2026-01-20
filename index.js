@@ -2,32 +2,32 @@ const express = require('express');
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.json(
-        [
-        {
-            id:1,
-            employeeName: "John Doe",
-            employeeSalary: 50000,
-            employeeAge: 30
-        },
-        {
-            id:2,
-            employeeName: "John Dae",
-            employeeSalary: 55000,
-            employeeAge: 25
-        },
-        {
-            id:3,
-            employeeName: "John Warner",
-            employeeSalary: 70000,
-            employeeAge: 40
-        },
-    ]
-    )
-    
-});
+const users = [
+    {id: 1, name: "User 1"},
+    {id: 2, name: "User 2"},
+    {id: 3, name: "User 3"},
+    {id: 4, name: "User 4"},
+    {id: 5, name: "User 5"},
+    {id: 6, name: "User 6"},
+    {id: 7, name: "User 7"},
+    {id: 8, name: "User 8"},
+    {id: 9, name: "User 9"},
+    {id: 10, name: "User 10"},
+]
 
-app.listen(4000, () => {
-    console.log('Server is running on port 4000');
-});
+app.get('/users', (req,res) => {
+    const page = req.query.page
+    const limit = req.query.limit
+
+    const startIndex = (page - 1) * limit
+    const endIndex = page * limit
+
+    const resultUsers = users.slice(startIndex, endIndex)
+    res.json(resultUsers)
+})
+
+// app.listen(4000, () => {
+//     console.log('Server is running on port 4000');
+// });
+
+app.listen(3000)
